@@ -148,9 +148,10 @@
             @apply text-gray-300 bg-transparent;
         }
 
-        /* Mobile Footer Nav Style */
+        /* Mobile Footer Nav Style (ICON ONLY) */
         .footer-nav-btn {
-            @apply flex flex-col items-center justify-center p-2 text-gray-600 rounded-lg transition-all duration-200;
+            /* Center the icon perfectly */
+            @apply flex flex-col items-center justify-center p-3 text-gray-600 rounded-lg transition-all duration-200;
         }
         .footer-nav-btn.active {
             @apply text-blue-600;
@@ -169,13 +170,71 @@
     <!-- Toast container -->
     <div id="toast-container"></div>
 
-    <!-- Main Content (with padding for mobile footer) -->
-    <div id="main-content" class="max-w-7xl mx-auto p-4 md:p-6 pb-24 md:pb-6">
+    <!-- NEW Login Screen -->
+    <div id="login-screen" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-sm">
+            <h2 class="text-3xl font-koulen text-blue-600 mb-6 text-center">ចូលប្រើប្រព័ន្ធ</h2>
+            <div class="space-y-4">
+                <div>
+                    <label for="username-input" class="block text-sm font-medium text-gray-700">ឈ្មោះអ្នកប្រើ</label>
+                    <input type="text" id="username-input" placeholder="ឧ. Daro" class="mt-1 w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="password-input" class="block text-sm font-medium text-gray-700">ពាក្យសម្ងាត់</label>
+                    <!-- Password container -->
+                    <div class="relative mt-1">
+                        <input type="password" id="password-input" placeholder="••••••••" class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 pr-10">
+                        <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-blue-600">
+                            <!-- Eye Icon (Show) -->
+                            <svg id="eye-icon-show" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                            </svg>
+                            <!-- Eye Slash Icon (Hide) - Hidden by default -->
+                            <svg id="eye-icon-hide" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash hidden" viewBox="0 0 16 16">
+                                <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-1.272.12l1.391 1.39L8 6.5a2.5 2.5 0 0 1 3.32 2.87l1.328 1.328c.661-.44 1.21-.979 1.68-1.62z"/>
+                                <path d="M2.641 4.761A13 13 0 0 1 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.991.99a4 4 0 0 1-1.344.442c-.06.012-.119.025-.178.038a7 7 0 0 1-1.272-.12 13 13 0 0 1-1.66-2.043C4.12 11.332 5.88 10.168 8 10.168c.205 0 .406.01.604.028l1.328-1.328a2.5 2.5 0 0 1-3.32-2.87L5.5 7.113A13 13 0 0 1 2.641 4.76zM1 8s3 5.5 8 5.5a7 7 0 0 0 1.272-.12l-1.39-1.39A4 4 0 0 1 8 10.5a4 4 0 0 1-1.344-.442 1.5 1.5 0 0 1 .178-.038A7 7 0 0 1 8 9.832a13 13 0 0 1-1.66-2.043C4.12 6.668 5.88 5.5 8 5.5c.205 0 .406.01.604.028l-1.328 1.328a2.5 2.5 0 0 1-3.32 2.87z"/>
+                                <path d="m8.636 12.049-1.328-1.328c-.022.018-.044.036-.067.053-.066.05-.133.097-.2.143l-1.39 1.39A7 7 0 0 0 8 12.5c.716 0 1.39-.133 2.02-.36l.03-.007a4 4 0 0 1-1.414-.084zM10.5 7.113l-1.328-1.328c.022-.018.044-.036.067-.053.066-.05.133-.097.2-.143l1.39-1.39A7 7 0 0 1 8 3.5c-.716 0-1.39.133-2.02.36l-.03.007a4 4 0 0 1 1.414.084l1.328 1.328c.022.018.044.036.067.053.066.05.133.097.2.143z"/>
+                                <path d="M14 8a4 4 0 0 1-1.344 2.89A7 7 0 0 1 8 12.5a7 7 0 0 1-1.272-.12l1.39-1.39a2.5 2.5 0 0 0 3.32-2.87l1.328-1.328C13.867 6.61 14 7.284 14 8"/>
+                                <path d="M1.966 9.11A4 4 0 0 1 3.31 6.22A7 7 0 0 1 8 3.5a7 7 0 0 1 1.272.12l-1.39 1.39a2.5 2.5 0 0 0-3.32 2.87l-1.328 1.328C2.133 9.39 1.966 8.716 1.966 9.11z"/>
+                                <path d="M15.707 15.707L.293.293.293.293 1.414 1.414 1.414 1.414 14.586 14.586l1.121-1.121z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember-me" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-900">រក្សាការចងចាំ</label>
+                    </div>
+                </div>
+                <button id="login-btn" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                        <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                    </svg>
+                    <span>ចូលប្រើ</span>
+                </button>
+                <div id="login-status" class="text-center text-red-600 h-5 text-sm"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden by default) -->
+    <div id="main-content" class="max-w-7xl mx-auto p-4 md:p-6 pb-24 md:pb-6 hidden">
         <header class="bg-white shadow-lg rounded-xl p-4 mb-6 flex justify-between items-center">
             <h1 class="text-2xl md:text-3xl font-koulen text-blue-600 text-center flex-grow">ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យបុគ្គលិក (ឆ្លាតវៃ)</h1>
+            <!-- NEW Mobile Logout Button -->
+            <button id="logoutBtn_mobile" title="ចាកចេញ" class="icon-btn md:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                </svg>
+            </button>
         </header>
 
-        <main class="space-y-6">
+        <!-- "Main" Page (Filters, Summary) -->
+        <div id="page-main-view" class="space-y-6">
             <!-- Top Controls (Desktop/Tablet Only) -->
             <div class="hidden md:flex bg-white shadow-lg rounded-xl p-3 gap-2 justify-between items-center">
                 <!-- Left controls -->
@@ -202,11 +261,18 @@
                     </button>
                 </div>
                 <!-- Right controls -->
-                <div>
+                <div class="flex items-center gap-2"> <!-- Modified wrapper -->
                     <button id="updateDataBtn_desktop" title="រក្សាទុកការកែប្រែ" class="icon-btn save-btn" disabled>
                         <div id="save-spinner_desktop" class="btn-spinner hidden"></div>
                         <svg id="save-icon_desktop" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
                             <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v4.5h2a.5.5 0 0 1 .354.854l-2.5 2.5a.5.5 0 0 1-.708 0l-2.5-2.5A.5.5 0 0 1 5.5 6.5h2V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+                        </svg>
+                    </button>
+                    <!-- NEW Desktop Logout Button -->
+                    <button id="logoutBtn_desktop" title="ចាកចេញ" class="icon-btn">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
                         </svg>
                     </button>
                 </div>
@@ -245,71 +311,80 @@
                     <p id="incomplete-count" class="text-3xl font-koulen">0</p>
                 </div>
             </div>
+        </div>
 
-            <!-- Data Display Area -->
-            <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-                <div id="status" class="text-center p-4" aria-live="polite"></div>
-                <div id="loader" class="hidden flex justify-center items-center my-8"><div class="loader"></div></div>
-                
-                <!-- Table View (Desktop/Tablet) -->
-                <div id="table-container" class="hidden md:block overflow-x-auto">
-                    <table class="min-w-full bg-white">
-                        <thead class="bg-gray-200">
-                            <tr>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="0">#</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="1">ក្រុម</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="2">ថ្នាក់</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="3">ផ្នែកការងារ</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="4">ឈ្មោះ</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="5">ភេទ</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="6">អត្តលេខ</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="7">កាលបរិច្ឆេទ</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="8">កាលវិភាគ</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider bg-yellow-200 sticky right-20 md:right-24 z-10">ម៉ោងចូល</th>
-                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider bg-yellow-200 sticky right-0 z-10">ម៉ោងចេញ</th>
-                            </tr>
-                        </thead>
-                        <tbody id="dataTableBody" class="divide-y divide-gray-200"></tbody>
-                    </table>
-                </div>
-
-                <!-- Card View (Mobile) -->
-                <div id="card-container" class="block md:hidden p-4 space-y-3">
-                    <!-- Cards will be injected here -->
-                </div>
-                
-                <!-- Pagination (Mobile) -->
-                <div id="pagination-controls" class="block md:hidden flex justify-between items-center p-4 border-t border-gray-200">
-                    <!-- Pagination controls will be injected here -->
-                </div>
-
+        <!-- "Data" Page (Table, Cards) - Hidden on mobile by default -->
+        <div id="data-display-area" class="bg-white shadow-lg rounded-xl overflow-hidden mt-6 md:mt-0 hidden md:block">
+            <div id="status" class="text-center p-4" aria-live="polite"></div>
+            <div id="loader" class="hidden flex justify-center items-center my-8"><div class="loader"></div></div>
+            
+            <!-- Table View (Desktop/Tablet) -->
+            <div id="table-container" class="hidden md:block overflow-x-auto">
+                <table class="min-w-full bg-white">
+                    <thead class="bg-gray-200">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="0">#</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="1">ក្រុម</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="2">ថ្នាក់</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="3">ផ្នែកការងារ</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="4">ឈ្មោះ</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="5">ភេទ</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="6">អត្តលេខ</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="7">កាលបរិច្ឆេទ</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider sortable-header" data-col-index="8">កាលវិភាគ</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider bg-yellow-200 sticky right-20 md:right-24 z-10">ម៉ោងចូល</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider bg-yellow-200 sticky right-0 z-10">ម៉ោងចេញ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTableBody" class="divide-y divide-gray-200"></tbody>
+                </table>
             </div>
-        </main>
+
+            <!-- Card View (Mobile) -->
+            <div id="card-container" class="block md:hidden p-4 space-y-3">
+                <!-- Cards will be injected here -->
+            </div>
+            
+            <!-- Pagination (Mobile) -->
+            <div id="pagination-controls" class="block md:hidden flex justify-between items-center p-4 border-t border-gray-200">
+                <!-- Pagination controls will be injected here -->
+            </div>
+
+        </div>
     </div>
 
-    <!-- Mobile Footer Navigation -->
-    <footer class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg grid grid-cols-4 z-30">
-        <button id="refreshDataBtn_mobile" title="ផ្ទុកទិន្នន័យឡើងវិញ" class="footer-nav-btn active">
-            <div id="fetch-spinner_mobile" class="btn-spinner hidden"></div>
-            <svg id="fetch-icon_mobile" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
-                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+    <!-- Mobile Footer Navigation (ICON ONLY) -->
+    <footer class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg grid grid-cols-5 z-30">
+        <!-- 1. Home -->
+        <button id="navBtn_home" title="ទំព័រដើម" class="footer-nav-btn active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L8.707 1.5Z"/>
             </svg>
         </button>
-        <button id="incompleteDataBtn_mobile" title="ទិន្នន័យមិនពេញលេញ" class="footer-nav-btn">
-            <div id="incomplete-spinner_mobile" class="btn-spinner hidden"></div>
+        <!-- 2. Data -->
+        <button id="navBtn_data" title="ទិន្នន័យ" class="footer-nav-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
+                <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+                <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/>
+            </svg>
+        </button>
+        <!-- 3. Incomplete -->
+        <button id="navBtn_incomplete" title="ទិន្នន័យមិនពេញលេញ" class="footer-nav-btn">
+             <div id="incomplete-spinner_mobile" class="btn-spinner hidden"></div>
             <svg id="incomplete-icon_mobile" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-exclamation" viewBox="0 0 16 16">
                <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
                <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1.5a.5.5 0 0 0 1 0V11a.5.5 0 0 0-.5-.5m0 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/>
             </svg>
         </button>
-        <button id="checkCompleteBtn_mobile" title="ពិនិត្យថ្ងៃដែលពេញលេញ" class="footer-nav-btn">
+        <!-- 4. Check -->
+        <button id="navBtn_check" title="ពិនិត្យថ្ងៃដែលពេញលេញ" class="footer-nav-btn">
             <div id="check-spinner_mobile" class="btn-spinner hidden"></div>
             <svg id="check-icon_mobile" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
                 <path d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z"/>
             </svg>
         </button>
-        <button id="updateDataBtn_mobile" title="រក្សាទុកការកែប្រែ" class="footer-nav-btn save-btn" disabled>
+        <!-- 5. Save -->
+        <button id="navBtn_save" title="រក្សាទុកការកែប្រែ" class="footer-nav-btn save-btn" disabled>
             <div id="save-spinner_mobile" class="btn-spinner hidden"></div>
             <svg id="save-icon_mobile" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
                 <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v4.5h2a.5.5 0 0 1 .354.854l-2.5 2.5a.5.5 0 0 1-.708 0l-2.5-2.5A.5.5 0 0 1 5.5 6.5h2V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
@@ -387,41 +462,59 @@
         // ===================================================================================
         const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyzx_nCvA5Y38708KF_EOTkjVTnCj9_GwmqMDV2LPHkY6SY42IGteV2ojOKkeLo4RB0/exec'; // <--- Insert your Web App URL here
 
+        // --- NEW LOGIN CONSTANTS ---
+        const CORRECT_USERNAME = 'Admin';
+        const CORRECT_PASSWORD = '4545mmk45';
+
         // --- DOM ELEMENT CACHING ---
         const getEl = (id) => document.getElementById(id);
         const DOM = {
             mainContent: getEl('main-content'),
+            pageMainView: getEl('page-main-view'),
+            dataDisplayArea: getEl('data-display-area'),
             dateFilter: getEl('dateFilter'),
+            
+            // NEW Login Elements
+            loginScreen: getEl('login-screen'),
+            loginBtn: getEl('login-btn'),
+            usernameInput: getEl('username-input'),
+            passwordInput: getEl('password-input'),
+            togglePassword: getEl('toggle-password'), // Password toggle
+            eyeIconShow: getEl('eye-icon-show'),     // Password toggle
+            eyeIconHide: getEl('eye-icon-hide'),     // Password toggle
+            rememberMe: getEl('remember-me'),
+            loginStatus: getEl('login-status'),
+            
+            // NEW Logout Buttons
+            logoutBtn_desktop: getEl('logoutBtn_desktop'),
+            logoutBtn_mobile: getEl('logoutBtn_mobile'),
+
             // Desktop buttons
             refreshDataBtn_desktop: getEl('refreshDataBtn_desktop'),
             updateDataBtn_desktop: getEl('updateDataBtn_desktop'),
             incompleteDataBtn_desktop: getEl('incompleteDataBtn_desktop'),
             checkCompleteBtn_desktop: getEl('checkCompleteBtn_desktop'),
-            // Mobile buttons
-            refreshDataBtn_mobile: getEl('refreshDataBtn_mobile'),
-            updateDataBtn_mobile: getEl('updateDataBtn_mobile'),
-            incompleteDataBtn_mobile: getEl('incompleteDataBtn_mobile'),
-            checkCompleteBtn_mobile: getEl('checkCompleteBtn_mobile'),
+            
+            // Mobile buttons (New 5-button layout)
+            navBtnHome: getEl('navBtn_home'),
+            navBtnData: getEl('navBtn_data'),
+            navBtnIncomplete: getEl('navBtn_incomplete'),
+            navBtnCheck: getEl('navBtn_check'),
+            navBtnSave: getEl('navBtn_save'),
+
             // Spinners
             spinners: {
-                fetch: [getEl('fetch-spinner_desktop'), getEl('fetch-spinner_mobile')],
+                fetch: [getEl('fetch-spinner_desktop')], // Mobile spinner is on data btn
                 save: [getEl('save-spinner_desktop'), getEl('save-spinner_mobile')],
                 incomplete: [getEl('incomplete-spinner_desktop'), getEl('incomplete-spinner_mobile')],
                 check: [getEl('check-spinner_desktop'), getEl('check-spinner_mobile')]
             },
             // Icons
             icons: {
-                fetch: [getEl('fetch-icon_desktop'), getEl('fetch-icon_mobile')],
+                fetch: [getEl('fetch-icon_desktop')],
                 save: [getEl('save-icon_desktop'), getEl('save-icon_mobile')],
                 incomplete: [getEl('incomplete-icon_desktop'), getEl('incomplete-icon_mobile')],
                 check: [getEl('check-icon_desktop'), getEl('check-icon_mobile')]
-            },
-            // Button Groups (for enabling/disabling)
-            buttons: {
-                refresh: [getEl('refreshDataBtn_desktop'), getEl('refreshDataBtn_mobile')],
-                save: [getEl('updateDataBtn_desktop'), getEl('updateDataBtn_mobile')],
-                incomplete: [getEl('incompleteDataBtn_desktop'), getEl('incompleteDataBtn_mobile')],
-                check: [getEl('checkCompleteBtn_desktop'), getEl('checkCompleteBtn_mobile')]
             },
             
             // Data Containers
@@ -464,6 +557,8 @@
             itemsPerPage: 15,
             touchStartX: 0,
             touchEndX: 0,
+            // Mobile Page State
+            mobilePage: 'main' // 'main' or 'data'
         };
         
         // --- UTILITY & HELPER FUNCTIONS ---
@@ -522,47 +617,95 @@
          * Backend បញ្ជូនមកជា String (e.g., "9-Nov-2025")
          */
         function formatDateForDisplay(dateStr) {
-            return (dateStr || '').toString().trim();
+            if (!dateStr || typeof dateStr !== 'string') return '';
+            
+            const date = new Date(dateStr);
+            if (isNaN(date.getTime())) {
+                // If it's not a valid date string (like "ឈប់"), return as is.
+                return dateStr.trim();
+            }
+            
+            // If it is a valid date string (e.g., "9-Nov-2025"), format it.
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            // Use 'en-GB' for dd-MMM-yyyy format
+            return date.toLocaleDateString('en-GB', options).replace(/ /g, '-');
         }
+
 
         /**
          * បង្ហាញម៉ោងក្នុងតារាង
          * Backend បញ្ជូនមកជា String (e.g., "07:08" or "ឈប់")
          */
         function formatTimeForDisplay(value) {
+            // Backend ឥឡូវនេះបញ្ជូនមកជា String ជានិច្ច
+            // គ្រាន់តែ Trim ហើយបង្ហាញ
             if (value === null || value === undefined) return '';
             return value.toString().trim();
         }
 
         // --- BUTTON STATE MANAGEMENT ---
         function setButtonLoading(buttonName, isLoading) {
-            const buttons = DOM.buttons[buttonName] || [];
             const spinners = DOM.spinners[buttonName] || [];
             const icons = DOM.icons[buttonName] || [];
 
-            buttons.forEach(btn => btn.disabled = isLoading);
+            // Desktop buttons
+            const desktopBtn = getEl(`${buttonName}Btn_desktop`);
+            if (desktopBtn) desktopBtn.disabled = isLoading;
             spinners.forEach(sp => sp.classList.toggle('hidden', !isLoading));
             icons.forEach(ic => ic.classList.toggle('hidden', isLoading));
             
+            // Mobile buttons
+            if (buttonName === 'fetch') {
+                // Fetch maps to 'data' button spinner
+                getEl('navBtn_data').disabled = isLoading;
+                // We don't have a spinner on navBtn_data, maybe we should add one?
+            } else {
+                const mobileBtn = getEl(`navBtn_${buttonName}`);
+                if (mobileBtn) mobileBtn.disabled = isLoading;
+            }
+            
+            // Special case for incomplete count
             if (buttonName === 'incomplete') {
                 DOM.incompleteCount.classList.toggle('hidden', isLoading);
             }
         }
         
         function setSaveButtonDisabled(isDisabled) {
-            DOM.buttons.save.forEach(btn => btn.disabled = isDisabled);
+            DOM.updateDataBtn_desktop.disabled = isDisabled;
+            DOM.navBtnSave.disabled = isDisabled;
         }
         
-        function updateActiveNav(buttonName) {
-            // Clear all active states
-            [...DOM.buttons.refresh, ...DOM.buttons.incomplete].forEach(btn => {
-                btn.classList.remove('active', 'text-blue-600');
-            });
-            
-            // Set active state
-            DOM.buttons[buttonName].forEach(btn => {
-                btn.classList.add('active', 'text-blue-600');
-            });
+        // --- MOBILE PAGE/NAV MANAGEMENT ---
+        function showMobilePage(pageName) { // 'main' or 'data'
+            state.mobilePage = pageName;
+            if (pageName === 'main') {
+                DOM.pageMainView.classList.remove('hidden');
+                DOM.dataDisplayArea.classList.add('hidden');
+                DOM.navBtnHome.classList.add('active');
+                DOM.navBtnData.classList.remove('active');
+            } else { // 'data'
+                DOM.pageMainView.classList.add('hidden');
+                DOM.dataDisplayArea.classList.remove('hidden', 'md:block'); // Show it
+                DOM.navBtnHome.classList.remove('active');
+                DOM.navBtnData.classList.add('active');
+            }
+            // Desktop is unaffected, CSS handles hiding
+            DOM.pageMainView.classList.add('md:block');
+            DOM.dataDisplayArea.classList.add('md:block');
+        }
+        
+        function updateActiveNav(mode) { // 'date' or 'incomplete'
+             if (mode === 'date') {
+                 DOM.incompleteDataBtn_desktop.classList.remove('text-blue-600', 'bg-blue-50');
+                 DOM.navBtnIncomplete.classList.remove('active');
+                 // Don't set refresh to active, Home or Data is active
+             } else { // 'incomplete'
+                 DOM.incompleteDataBtn_desktop.classList.add('text-blue-600', 'bg-blue-50');
+                 DOM.navBtnIncomplete.classList.add('active');
+                 // Deactivate home/data
+                 DOM.navBtnHome.classList.remove('active');
+                 DOM.navBtnData.classList.remove('active');
+             }
         }
 
         // --- DATA HANDLING & RENDERING ---
@@ -585,8 +728,6 @@
                 if (!response.ok) throw new Error(`Network error: ${response.statusText}`);
                 const data = await response.json();
                 
-                // *** HOTFIX: Check if data is array ***
-                // Backend ពេលខ្លះអាចបញ្ជូន { error: ... }
                 if (data.error) throw new Error(data.error);
                 if (!Array.isArray(data) && (action === 'getData' || action === 'getIncompleteData' || action === 'getCompleteDates')) {
                    throw new Error("ទិន្នន័យដែលទទួលបានមិនត្រឹមត្រូវ។");
@@ -614,6 +755,7 @@
 
             state.currentSelectedDate = selectedDate;
             const parts = selectedDate.split('-').map(Number);
+            // ប្រើ new Date() ធម្មតា ព្រោះ YYYY-MM-DD នឹងត្រូវបកស្រាយជា Local time
             const dateObj = new Date(parts[0], parts[1] - 1, parts[2]); 
             const monthYear = getYYYYMM(dateObj); // "YYYY-MM"
 
@@ -623,15 +765,10 @@
                 
                 try {
                     // *** Data from backend is { rowIndex, data (string[]), dateObj (UTC Date) } ***
-                    const data = await apiCall('getData', { monthYear: monthYear }, 'refresh');
-                    // បំប្លែង Date Object strings ត្រឡប់ទៅជា Date Objects
-                    const processedData = data.map(item => ({
-                        ...item,
-                        dateObj: item.dateObj ? new Date(item.dateObj) : null 
-                    }));
-                    state.monthlyDataCache.set(monthYear, processedData); 
-                    
+                    const data = await apiCall('getData', { monthYear: monthYear }, 'fetch');
+                    state.monthlyDataCache.set(monthYear, data); 
                     state.currentMonthYear = monthYear;
+                    
                     if (forceRefresh) {
                         showToast(`បានផ្ទុកទិន្នន័យថ្មីសម្រាប់ខែ ${monthYear}`, 'success');
                     }
@@ -656,23 +793,21 @@
             }
             
             const parts = selectedDate.split('-').map(Number);
-            // បង្កើត Target Date ជា UTC
             const targetDate = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
             
             state.currentDayData = monthlyData.filter(item => {
                 // item.dateObj គឺជា UTC Date object ពី backend
-                const itemDate = item.dateObj; 
+                const itemDate = item.dateObj ? new Date(item.dateObj) : null; 
                 if (!itemDate || isNaN(itemDate.getTime())) return false;
                 
-                // ប្រៀបធៀប UTC parts
                 return itemDate.getUTCFullYear() === targetDate.getUTCFullYear() &&
                        itemDate.getUTCMonth() === targetDate.getUTCMonth() &&
                        itemDate.getUTCDate() === targetDate.getUTCDate();
             });
 
             if (state.currentDayData.length === 0) {
-                // បង្កើត Display Date ជា Local
-                const displayDate = new Date(parts[0], parts[1] - 1, parts[2]); 
+                // បង្កើត Local Date សម្រាប់បង្ហាញ
+                const displayDate = new Date(parts[0], parts[1] - 1, parts[2]);
                 const dateString = displayDate.toLocaleDateString('km-KH', { day: '2-digit', month: 'short', year: 'numeric' });
                 showStatus(`រកមិនឃើញទិន្នន័យសម្រាប់ថ្ងៃទី ${dateString} ទេ។`);
             } else {
@@ -690,12 +825,7 @@
             try {
                 // *** Data from backend is { rowIndex, data (string[]), dateObj (UTC Date) } ***
                 const data = await apiCall('getIncompleteData', {}, 'incomplete'); 
-                // បំប្លែង Date Object strings ត្រឡប់ទៅជា Date Objects
-                state.currentDayData = data.map(item => ({
-                    ...item,
-                    dateObj: item.dateObj ? new Date(item.dateObj) : null 
-                }));
-                
+                state.currentDayData = data;
                 applyFiltersAndRender(); 
                 
                 if (state.currentDayData.length === 0) {
@@ -704,6 +834,7 @@
                     showStatus(`រកឃើញ ${state.currentDayData.length} ទិន្នន័យមិនពេញលេញ (ខែបច្ចុប្បន្ន)`);
                 }
                 DOM.incompleteCount.textContent = state.currentDayData.length;
+                showMobilePage('data'); // Switch to data page on mobile
             } catch (error) {
                 showStatus(`មានបញ្ហាទាញទិន្នន័យមិនពេញលេញ: ${error.message}`, true);
                 goBackToDateMode(); // Revert on error
@@ -714,7 +845,9 @@
         
         function goBackToDateMode() {
             state.currentMode = 'date';
-            updateActiveNav('refresh');
+            updateActiveNav('date'); // 'date' mode maps to 'home' or 'data' nav
+            showMobilePage(state.mobilePage); // Go back to whichever page was active
+            
             filterDataForDay(state.currentSelectedDate);
             applyFiltersAndRender();
         }
@@ -737,7 +870,7 @@
             
             if (state.currentMode === 'date') {
                 updateSummary(state.filteredData);
-                DOM.incompleteCount.textContent = '0'; 
+                DOM.incompleteCount.textContent = '0'; // Reset incomplete count in date mode
             } else {
                  DOM.incompleteCount.textContent = state.filteredData.length;
                  updateSummary([]); // Clear summary cards
@@ -754,8 +887,8 @@
                 
                 if (state.sortConfig.index === 7) { 
                     // ប្រើ dateObj សម្រាប់ sort
-                    const dateA = a.dateObj?.getTime() || 0;
-                    const dateB = b.dateObj?.getTime() || 0;
+                    const dateA = a.dateObj ? new Date(a.dateObj).getTime() : 0;
+                    const dateB = b.dateObj ? new Date(b.dateObj).getTime() : 0;
                     return state.sortConfig.direction === 'asc' ? dateA - dateB : dateB - dateA;
                 }
 
@@ -785,8 +918,8 @@
                 }, {});
                 // Sort by dateObj
                 const sortedDates = Object.keys(groupedData).sort((a, b) => {
-                    const dateA = groupedData[a][0]?.dateObj?.getTime() || 0;
-                    const dateB = groupedData[b][0]?.dateObj?.getTime() || 0;
+                    const dateA = groupedData[a][0]?.dateObj ? new Date(groupedData[a][0].dateObj).getTime() : 0;
+                    const dateB = groupedData[b][0]?.dateObj ? new Date(groupedData[b][0].dateObj).getTime() : 0;
                     return dateB - dateA; // Descending
                 });
                 
@@ -1050,7 +1183,7 @@
 
                 const response = await fetch(WEB_APP_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'text-plain;charset=utf-8' },
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({ 
                         updates, 
                         user: state.currentUser,
@@ -1147,6 +1280,45 @@
             }
         }
 
+        // --- NEW AUTHENTICATION FUNCTIONS ---
+        function handleLogin(e) {
+            e.preventDefault(); // Prevent form submission
+            const username = DOM.usernameInput.value.trim();
+            const password = DOM.passwordInput.value;
+
+            if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
+                if (DOM.rememberMe.checked) {
+                    localStorage.setItem('isLoggedIn', 'true');
+                }
+                showMainContent();
+                // Start loading data *after* login
+                initializeApp(); 
+            } else {
+                DOM.loginStatus.textContent = 'ឈ្មោះ ឬពាក្យសម្ងាត់មិនត្រឹមត្រូវ';
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('isLoggedIn');
+            DOM.mainContent.classList.add('hidden');
+            DOM.loginScreen.classList.remove('hidden');
+            DOM.passwordInput.value = '';
+            DOM.loginStatus.textContent = '';
+            // Clear all data on logout
+            state.monthlyDataCache.clear();
+            state.currentDayData = [];
+            state.filteredData = [];
+            renderTableView([]);
+            renderCardView([]);
+            updateSummary([]);
+        }
+
+        function showMainContent() {
+            DOM.mainContent.classList.remove('hidden');
+            DOM.loginScreen.classList.add('hidden');
+            DOM.loginStatus.textContent = '';
+        }
+
         // --- EVENT LISTENER SETUP ---
         function setupEventListeners() {
             // Edit data (Table)
@@ -1164,9 +1336,24 @@
                 }
             });
             
+            // --- NEW AUTH LISTENERS ---
+            DOM.loginBtn.addEventListener('click', handleLogin);
+            DOM.logoutBtn_desktop.addEventListener('click', handleLogout);
+            DOM.logoutBtn_mobile.addEventListener('click', handleLogout);
+
+            // NEW Password Toggle
+            DOM.togglePassword.addEventListener('click', () => {
+                const isPassword = DOM.passwordInput.type === 'password';
+                DOM.passwordInput.type = isPassword ? 'text' : 'password';
+                DOM.eyeIconShow.classList.toggle('hidden', isPassword);
+                DOM.eyeIconHide.classList.toggle('hidden', !isPassword);
+            });
+
             // Change date
             DOM.dateFilter.addEventListener('change', () => {
-                goBackToDateMode(); // Ensure we are in date mode
+                if (state.currentMode === 'incomplete') {
+                    goBackToDateMode(); // Switch back to date mode if changed
+                }
                 handleDateChange(false);
             });
 
@@ -1187,23 +1374,46 @@
                 }
             });
 
-            // --- Setup Listeners for ALL buttons (Desktop & Mobile) ---
-            DOM.buttons.refresh.forEach(btn => btn.addEventListener('click', () => {
-                goBackToDateMode(); // Go to date mode
-                handleDateChange(true); // Force refresh
-            }));
-            
-            DOM.buttons.save.forEach(btn => btn.addEventListener('click', updateData));
-            
-            DOM.buttons.incomplete.forEach(btn => btn.addEventListener('click', () => {
+            // --- Setup Listeners for ALL buttons ---
+            // Desktop
+            DOM.refreshDataBtn_desktop.addEventListener('click', () => {
+                goBackToDateMode(); 
+                handleDateChange(true); 
+            });
+            DOM.updateDataBtn_desktop.addEventListener('click', updateData);
+            DOM.incompleteDataBtn_desktop.addEventListener('click', () => {
                 if (state.currentMode === 'date') {
                     fetchIncompleteData();
                 } else {
                     goBackToDateMode();
                 }
-            }));
+            });
+            DOM.checkCompleteBtn_desktop.addEventListener('click', handleCheckComplete);
             
-            DOM.buttons.check.forEach(btn => btn.addEventListener('click', handleCheckComplete));
+            // Mobile
+            DOM.navBtnHome.addEventListener('click', () => {
+                showMobilePage('main');
+                if (state.currentMode === 'incomplete') {
+                    goBackToDateMode();
+                }
+            });
+            DOM.navBtnData.addEventListener('click', () => {
+                showMobilePage('data');
+                if (state.currentMode === 'incomplete') {
+                    goBackToDateMode();
+                }
+            });
+            DOM.navBtnIncomplete.addEventListener('click', () => {
+                if (state.currentMode === 'date') {
+                    fetchIncompleteData(); // This will auto-switch to data page
+                } else {
+                    goBackToDateMode();
+                    showMobilePage('data'); // Go back to data page (date mode)
+                }
+            });
+            DOM.navBtnCheck.addEventListener('click', handleCheckComplete);
+            DOM.navBtnSave.addEventListener('click', updateData);
+
             
             // --- Swipe Gestures (Mobile) ---
             DOM.cardContainer.addEventListener('touchstart', (e) => {
@@ -1231,17 +1441,31 @@
             });
         }
         
-        // --- INITIALIZATION ---
-        window.addEventListener('DOMContentLoaded', () => {
+        // --- NEW INITIALIZATION (MOVED DATA LOAD) ---
+        function initializeApp() {
             if (!validateWebAppUrl()) return;
-            setupEventListeners();
             
             // Set date filter to today and fetch data automatically
             const today = new Date();
             DOM.dateFilter.value = getYYYYMMDD(today);
             state.currentSelectedDate = DOM.dateFilter.value;
+            showMobilePage('main'); // Start on main page
             goBackToDateMode(); // Set initial active button
             handleDateChange(false); // Fetch data for today
+        }
+
+        // --- MODIFIED INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            // Setup base listeners first
+            setupEventListeners();
+            
+            // Check login status
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                showMainContent();
+                initializeApp(); // Load data if already logged in
+            } else {
+                DOM.loginScreen.classList.remove('hidden'); // Show login screen
+            }
         });
     </script>
 </body>
